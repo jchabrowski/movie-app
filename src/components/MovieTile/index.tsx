@@ -1,47 +1,36 @@
-// import { useState } from 'react';
-
 import styled from 'styled-components';
-import { FaStar, FaRegHeart } from 'react-icons/fa';
+import { FaRegHeart } from 'react-icons/fa';
 
 export type MovieProps = {
-  name: string;
-  year: number;
-  poster: string;
-  plot: string;
-  genre: string;
-  imdbRating: string;
+  Title: string;
+  Year: number;
+  Poster: string;
+  Type: string;
 };
 
-const MovieTile = ({
-  name,
-  plot,
-  poster,
-  year,
-  genre,
-  imdbRating,
-}: MovieProps) => {
+const MovieTile = ({ Title, Poster, Year, Type }: MovieProps) => {
   return (
     <StyledMovieBox>
       <PosterWrapper>
-        <Poster src={poster} alt={name} loading='lazy' />
+        {Poster && <Img src={Poster} alt={Title} loading='lazy' />}
       </PosterWrapper>
 
       <InformationWrapper>
         <TopRowWrapper>
-          <h2>{name}</h2>
-          <p>{year}</p>
+          <h2>
+            {Title}
+            <StyledYear>{Year}</StyledYear>
+          </h2>
 
           <FaRegHeart />
         </TopRowWrapper>
 
-        <p>{plot}</p>
-
         <RatingWrapper>
-          <p>Genre: {genre}</p>
+          <p>{Type}</p>
 
-          <div>
+          {/* <div>
             <FaStar /> {imdbRating}
-          </div>
+          </div> */}
         </RatingWrapper>
       </InformationWrapper>
     </StyledMovieBox>
@@ -53,7 +42,7 @@ const StyledMovieBox = styled.div`
   margin: 1rem 0;
   border: 1px solid gray;
   border-radius: 0.5rem;
-  max-width: 34rem;
+  width: 34rem;
 `;
 
 const TopRowWrapper = styled.div`
@@ -69,10 +58,6 @@ const TopRowWrapper = styled.div`
   :last-child {
     fill: #e63946;
     margin-left: auto;
-
-    :hover {
-      cursor: pointer;
-    }
   }
 `;
 
@@ -87,6 +72,7 @@ const InformationWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
   padding: 1rem;
 `;
 
@@ -95,7 +81,13 @@ const PosterWrapper = styled.div`
   min-width: 10rem;
 `;
 
-const Poster = styled.img`
+const StyledYear = styled.span`
+  font-size: 0.9rem;
+  font-weight: 400;
+  margin-left: 0.2rem;
+`;
+
+const Img = styled.img`
   width: 10rem;
   height: 100%;
   transition: transform 0.3s ease;

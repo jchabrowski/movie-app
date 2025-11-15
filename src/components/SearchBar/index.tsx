@@ -1,9 +1,12 @@
-import { useState } from 'react';
+import { type Dispatch, type SetStateAction } from 'react';
 import styled from 'styled-components';
 
-const SearchBar = () => {
-  const [value, setValue] = useState<string>();
+type Props = {
+  value: string;
+  setValue: Dispatch<SetStateAction<string>>;
+};
 
+const SearchBar = ({ value, setValue }: Props) => {
   const handleValueChange = (name: string) => {
     setValue(name);
   };

@@ -1,52 +1,32 @@
 import { useState } from 'react';
 import './App.css';
-import MovieTile from './components/MovieTile';
 import SearchBar from './components/SearchBar';
-import { useGetDebouncedMovies } from './hooks/useGetDebouncedMovies';
 import styled from 'styled-components';
+import { useMovies } from './hooks/useMovies';
+import Movies from './components/Movies';
+import Error from './components/Error';
+import Loading from './components/Loading';
 
 const App = () => {
   const [page, setPage] = useState(1);
-  const [value, setValue] = useState<string>('beter');
+  const [value, setValue] = useState<string>('');
 
-  const { movies, error } = useGetDebouncedMovies({ title: value, page });
-  const foundMovies = !error && movies.length > 0;
+  const { movies, error, isLoading } = useMovies({ title: value, page });
+  const showMovies = movies.length > 0 && !error;
+  const showError = error && !showMovies;
 
-  console.log({ movies });
   return (
     <ApplicationWrapper>
       <SearchBar value={value} setValue={setValue} />
 
-      {/* TODO ADD LOADING */}
+      {showError && <Error />}
 
-      {error && !foundMovies && <p>{error}</p>}
+      {isLoading && <Loading />}
 
-      {foundMovies &&
-        movies.map((el) => {
-          return (
-            <MovieTile
-              key={el.Title}
-              Title={el.Title}
-              Poster={el.Poster}
-              Year={el.Year}
-              Type={el.Type}
-            />
-          );
-        })}
+      {showMovies && <Movies movies={movies} />}
     </ApplicationWrapper>
   );
 };
-
-// const MOVIE_ARR = Array.from({ length: 9 }).fill({
-//   name: 'Interstellar',
-//   year: 2024,
-//   poster:
-//     'https://m.media-amazon.com/images/M/MV5BZWMzZDUzZmQtM2VjMy00YTMzLWE5YTktZmIzMTljNDc3MWQ1XkEyXkFqcGc@._V1_SX300.jpg',
-
-//   plot: 'A corrupt police detective has a painful moral awakening and decides to put right 20 years of wrongdoing.',
-//   genre: 'Thriller / Drama',
-//   imdbRating: '6.5',
-// }) as MovieProps[];
 
 const ApplicationWrapper = styled.div`
   justify-content: center;

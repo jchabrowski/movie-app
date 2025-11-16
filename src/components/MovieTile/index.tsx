@@ -1,25 +1,22 @@
 import styled from 'styled-components';
 import { FaRegHeart } from 'react-icons/fa';
+import type { MovieOverviewType } from '../../schemas';
 
-export type MovieProps = {
-  Title: string;
-  Year: number;
-  Poster: string;
-  Type: string;
-};
+const MovieTile = ({ Title, Poster, Year, Type }: MovieOverviewType) => {
+  const showPoster = Poster !== 'N/A';
+  const showFallback = Poster === 'N/A';
 
-const MovieTile = ({ Title, Poster, Year, Type }: MovieProps) => {
   return (
     <StyledMovieBox>
       <PosterWrapper>
-        {Poster && <Img src={Poster} alt={Title} loading='lazy' />}
+        {showPoster && <Img src={Poster} alt={Title} loading='lazy' />}
+        {showFallback && <GradientDiv />}
       </PosterWrapper>
 
       <InformationWrapper>
         <TopRowWrapper>
           <h2>
-            {Title}
-            <StyledYear>{Year}</StyledYear>
+            {Title} <StyledYear>{Year}</StyledYear>
           </h2>
 
           <FaRegHeart />
@@ -27,10 +24,6 @@ const MovieTile = ({ Title, Poster, Year, Type }: MovieProps) => {
 
         <RatingWrapper>
           <p>{Type}</p>
-
-          {/* <div>
-            <FaStar /> {imdbRating}
-          </div> */}
         </RatingWrapper>
       </InformationWrapper>
     </StyledMovieBox>
@@ -50,11 +43,6 @@ const TopRowWrapper = styled.div`
   align-items: baseline;
   gap: 0.5rem;
 
-  > h2,
-  p {
-    margin: 0;
-  }
-
   :last-child {
     fill: #e63946;
     margin-left: auto;
@@ -71,7 +59,7 @@ const RatingWrapper = styled.div`
 const InformationWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   padding: 1rem;
 `;
@@ -82,9 +70,9 @@ const PosterWrapper = styled.div`
 `;
 
 const StyledYear = styled.span`
-  font-size: 0.9rem;
+  font-size: 1rem;
+  align-self: end;
   font-weight: 400;
-  margin-left: 0.2rem;
 `;
 
 const Img = styled.img`
@@ -96,6 +84,12 @@ const Img = styled.img`
     transform: scale(1.05);
     cursor: pointer;
   }
+`;
+
+const GradientDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #3a3a3a, #2a2a2a);
 `;
 
 export default MovieTile;

@@ -11,6 +11,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import PaginationButtons from './components/Pagination';
 import ThemeToggler from './components/ThemeToggler';
+import Info from './components/Info';
 
 const INITIAL_INPUT = '';
 
@@ -29,6 +30,7 @@ const App = () => {
   const showMovies = movies.length > 0 && !error;
   const showError = error && !showMovies;
   const showPagination = pagesAmount > 1;
+  const showInfo = !showMovies && !isLoading && !showError;
 
   const handlePageChange = useCallback(
     (newPage: number) => setPage(newPage),
@@ -55,6 +57,8 @@ const App = () => {
         {showError && <Error />}
 
         {isLoading && <Loading />}
+
+        {showInfo && <Info />}
 
         {showMovies && <Movies movies={movies} />}
       </ApplicationWrapper>

@@ -8,6 +8,7 @@ import {
 import { useDebounce } from './useDebounce';
 
 const API_KEY = 'a7e0de6a';
+const MOVIES_PER_PAGE = 10;
 
 type ValidType = 'movie' | 'series' | 'episode';
 
@@ -28,10 +29,10 @@ export const useMovies = ({ title, year, type, page }: Props) => {
     enabled: debouncedTitle.length > 0,
 
     queryFn: async () => {
-      // This is a workaround! OMDBApi is flaky. For a search mode (modifier === 's') with less than 3 characters api results in an error "Too many results."
+      // This is a workaround! OMDBApi is flaky. For a search mode request (modifier === 's') with title shorter than 3 characters api results in an error "Too many results."
       // I decided to use the api in title mode (modifier === 't') and fetch only one movie if user searches for a title that has less than 3 characters
       // It produces additional logic and schema validation (responses for 't' and 's' differ).
-      // In a real world app this would require a strict business decision (on how we should use the api) or fix in the api itself.
+      // In a real world scenario this would require a strict business decision (on how the api should be used) or fix in the api itself.
       const MODIFIER = debouncedTitle.length > 2 ? 's' : 't';
       const URL = `https://www.omdbapi.com/?apikey=${API_KEY}&${MODIFIER}=${debouncedTitle}&page=${page}`;
 
@@ -45,14 +46,20 @@ export const useMovies = ({ title, year, type, page }: Props) => {
       }
 
       if (isSearchResponse(parsed)) {
-        return parsed.Search;
+        return {
+          movies: parsed.Search,
+          pagesAmount: Math.ceil(Number(parsed.totalResults) / MOVIES_PER_PAGE),
+        };
       }
 
       if (isTitleResponse(parsed)) {
-        return [parsed];
+        return {
+          movies: [parsed],
+          pagesAmount: 1,
+        };
       }
 
-      return [];
+      return { movies: [], totalResults: 0 };
     },
 
     staleTime: ONE_MINUTE,
@@ -60,9 +67,10 @@ export const useMovies = ({ title, year, type, page }: Props) => {
   });
 
   return {
-    movies: result.data ?? [],
+    movies: result.data?.movies ?? [],
     isLoading: result.isLoading,
     error: result.error ? true : null,
+    pagesAmount: result.data?.pagesAmount ?? 1,
   };
 };
 

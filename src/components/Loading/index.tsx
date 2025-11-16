@@ -1,10 +1,10 @@
-import { SpinnerCircular } from 'spinners-react';
+import CircularProgress from '@mui/material/CircularProgress';
 import styled from 'styled-components';
 
 const Loading = () => {
   return (
     <SpinnerWrapper>
-      <SpinnerCircular size={150} />
+      <CircularProgress size={'3rem'} color='secondary' />
     </SpinnerWrapper>
   );
 };

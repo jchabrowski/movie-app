@@ -3,19 +3,21 @@ import styled from 'styled-components';
 
 type Props = {
   value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  setTitle: Dispatch<SetStateAction<string>>;
+  setPage: Dispatch<SetStateAction<number>>;
 };
 
-const SearchBar = ({ value, setValue }: Props) => {
+const SearchBar = ({ value, setTitle, setPage }: Props) => {
   const handleValueChange = (name: string) => {
-    setValue(name);
+    setTitle(name);
+    setPage(1);
   };
 
   return (
     <InputWrapper>
       <label htmlFor='movie'>Enter the movie name you're looking for!</label>
       <StyledInput
-        name='movie'
+        id='movie'
         type='text'
         placeholder='Search for a movie...'
         value={value}

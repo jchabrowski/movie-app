@@ -1,30 +1,64 @@
-import { useState } from 'react';
-import './App.css';
+import { useCallback, useState } from 'react';
 import SearchBar from './components/SearchBar';
 import styled from 'styled-components';
 import { useMovies } from './hooks/useMovies';
 import Movies from './components/Movies';
 import Error from './components/Error';
 import Loading from './components/Loading';
+import { ThemeProvider } from '@mui/material/styles';
+import { darkTheme, lightTheme } from './theme';
+import CssBaseline from '@mui/material/CssBaseline';
+
+import PaginationButtons from './components/Pagination';
+import ThemeToggler from './components/ThemeToggler';
+
+const INITIAL_INPUT = '';
 
 const App = () => {
-  const [page, setPage] = useState(1);
-  const [value, setValue] = useState<string>('');
+  const [isDarkMode, setIsDarkMode] = useState(true);
+  const currentTheme = isDarkMode ? darkTheme : lightTheme;
 
-  const { movies, error, isLoading } = useMovies({ title: value, page });
+  const [page, setPage] = useState(1);
+  const [title, setTitle] = useState<string>(INITIAL_INPUT);
+
+  const { movies, error, isLoading, pagesAmount } = useMovies({
+    title,
+    page,
+  });
+
   const showMovies = movies.length > 0 && !error;
   const showError = error && !showMovies;
+  const showPagination = pagesAmount > 1;
+
+  const handlePageChange = useCallback(
+    (newPage: number) => setPage(newPage),
+    []
+  );
 
   return (
-    <ApplicationWrapper>
-      <SearchBar value={value} setValue={setValue} />
+    <ThemeProvider theme={currentTheme}>
+      <CssBaseline />
 
-      {showError && <Error />}
+      <ApplicationWrapper>
+        <ThemeToggler onClick={() => setIsDarkMode((prev) => !prev)} />
 
-      {isLoading && <Loading />}
+        <SearchBar value={title} setTitle={setTitle} setPage={setPage} />
 
-      {showMovies && <Movies movies={movies} />}
-    </ApplicationWrapper>
+        {showPagination && (
+          <PaginationButtons
+            pagesAmount={pagesAmount}
+            page={page}
+            onPageChange={handlePageChange}
+          />
+        )}
+
+        {showError && <Error />}
+
+        {isLoading && <Loading />}
+
+        {showMovies && <Movies movies={movies} />}
+      </ApplicationWrapper>
+    </ThemeProvider>
   );
 };
 

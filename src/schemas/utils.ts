@@ -13,7 +13,7 @@ export const isErrorResponse = (
 export const isSearchResponse = (
   data: OmdbResponseType
 ): data is z.infer<typeof SearchResponse> =>
-  data.Response === 'True' && 'Search' in data;
+  data.Response === 'True' && 'Search' in data && 'totalResults' in data;
 
 export const isTitleResponse = (
   data: OmdbResponseType

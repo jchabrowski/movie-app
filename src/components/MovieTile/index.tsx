@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { FaRegHeart } from 'react-icons/fa';
 import type { MovieOverviewType } from '../../schemas';
+import Button from '@mui/material/Button';
 
 const MovieTile = ({ Title, Poster, Year, Type }: MovieOverviewType) => {
   const showPoster = Poster !== 'N/A';
@@ -18,12 +18,12 @@ const MovieTile = ({ Title, Poster, Year, Type }: MovieOverviewType) => {
           <h2>
             {Title} <StyledYear>{Year}</StyledYear>
           </h2>
-
-          <FaRegHeart />
         </TopRowWrapper>
 
         <RatingWrapper>
           <p>{Type}</p>
+
+          <Button color='secondary'>Details</Button>
         </RatingWrapper>
       </InformationWrapper>
     </StyledMovieBox>
@@ -40,19 +40,12 @@ const StyledMovieBox = styled.div`
 
 const TopRowWrapper = styled.div`
   display: flex;
-  align-items: baseline;
-  gap: 0.5rem;
-
-  :last-child {
-    fill: #e63946;
-    margin-left: auto;
-  }
 `;
 
 const RatingWrapper = styled.div`
   display: flex;
   align-items: baseline;
-  gap: 1.5rem;
+  justify-content: space-between;
   font-size: 0.9rem;
 `;
 

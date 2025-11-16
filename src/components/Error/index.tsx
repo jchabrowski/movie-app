@@ -1,9 +1,10 @@
-import { FiFrown } from 'react-icons/fi';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
 
 const Error = () => {
   return (
     <p>
-      Oops! <FiFrown /> Looks like we cannot find the movie you are looking for!
+      Oops! <SentimentVeryDissatisfiedIcon /> Looks like we cannot find the
+      movie you are looking for!
       <br></br>
       Please try to reset your filters!
     </p>

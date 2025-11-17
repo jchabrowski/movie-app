@@ -41,6 +41,7 @@ export const useMovies = ({ title, year, type, page }: Props) => {
       const parsed = OmdbResponse.parse(json);
 
       if (isErrorResponse(parsed)) {
+        // console.error for local development
         console.error(parsed.Error);
         throw new Error(parsed.Error);
       }

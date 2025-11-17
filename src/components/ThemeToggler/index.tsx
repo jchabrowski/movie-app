@@ -1,14 +1,16 @@
 import IconButton from '@mui/material/IconButton';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 
-type Props = {
-  onClick: () => void;
-};
+import { useAtom } from 'jotai';
 
-const ThemeToggler = ({ onClick }: Props) => {
+import { toggleThemeAtom } from '../../atoms/themeAtom';
+
+const ThemeToggler = () => {
+  const [, toggleTheme] = useAtom(toggleThemeAtom);
+
   return (
     <IconButton
-      onClick={onClick}
+      onClick={toggleTheme}
       color='secondary'
       aria-label='toggle darkmode'
     >

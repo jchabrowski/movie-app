@@ -1,3 +1,6 @@
+import { atom } from 'jotai';
+import { atomWithStorage } from 'jotai/utils';
+
 import { createTheme } from '@mui/material/styles';
 
 export const lightTheme = createTheme({
@@ -56,4 +59,19 @@ export const darkTheme = createTheme({
   typography: {
     fontFamily: 'system-ui, Avenir, Helvetica, Arial, sans-serif',
   },
+});
+
+export const themeModeAtom = atomWithStorage<'light' | 'dark'>(
+  'themeMode',
+  'dark'
+);
+
+export const themeAtom = atom((get) => {
+  const mode = get(themeModeAtom);
+  return mode === 'light' ? lightTheme : darkTheme;
+});
+
+export const toggleThemeAtom = atom(null, (get, set) => {
+  const currentMode = get(themeModeAtom);
+  set(themeModeAtom, currentMode === 'light' ? 'dark' : 'light');
 });

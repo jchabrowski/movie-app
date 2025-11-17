@@ -33,9 +33,18 @@ const MovieTile = ({ Title, Poster, Year, Type }: MovieOverviewType) => {
 const StyledMovieBox = styled.div`
   display: flex;
   margin: 1rem 0;
-  border: 1px solid gray;
-  border-radius: 0.5rem;
-  width: 34rem;
+  width: 30rem;
+
+  @media screen and (max-width: 550px) {
+    width: 100%;
+    flex-direction: column;
+    max-width: 14rem;
+  }
+
+  @media screen and (min-width: 551px) {
+    border: 1px solid gray;
+    border-radius: 0.5rem;
+  }
 `;
 
 const TopRowWrapper = styled.div`
@@ -60,11 +69,15 @@ const InformationWrapper = styled.div`
 const PosterWrapper = styled.div`
   overflow: hidden;
   min-width: 10rem;
+
+  @media screen and (max-width: 550px) {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const StyledYear = styled.span`
   font-size: 1rem;
-  align-self: end;
   font-weight: 400;
 `;
 

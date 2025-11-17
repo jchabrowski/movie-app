@@ -14,7 +14,7 @@ const SearchBar = ({ value, setTitle, setPage }: Props) => {
   };
 
   return (
-    <InputWrapper>
+    <SearchBarWrapper>
       <label htmlFor='movie'>Enter the movie name you're looking for!</label>
       <StyledInput
         id='movie'
@@ -23,20 +23,24 @@ const SearchBar = ({ value, setTitle, setPage }: Props) => {
         value={value}
         onChange={(e) => handleValueChange(e.target.value)}
       />
-    </InputWrapper>
+    </SearchBarWrapper>
   );
 };
 
 const StyledInput = styled.input`
-  width: 32rem;
   padding: 1rem;
   border-radius: 0.5rem;
 `;
 
-const InputWrapper = styled.div`
-  margin-top: 4rem;
+const SearchBarWrapper = styled.div`
+  margin-top: 2rem;
   display: flex;
   flex-direction: column;
+  width: 30rem;
+
+  @media screen and (max-width: 550px) {
+    width: 100%;
+  }
 `;
 
 export default SearchBar;

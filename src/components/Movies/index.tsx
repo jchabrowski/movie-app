@@ -1,5 +1,5 @@
 import type { MovieOverviewType } from '../../schemas';
-import MovieTile from '../MovieTile';
+import MovieTile from './MovieTile';
 
 type Props = {
   movies: MovieOverviewType[];

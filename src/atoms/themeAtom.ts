@@ -67,8 +67,8 @@ export const themeModeAtom = atomWithStorage<'light' | 'dark'>(
 );
 
 export const themeAtom = atom((get) => {
-  const mode = get(themeModeAtom);
-  return mode === 'light' ? lightTheme : darkTheme;
+  const currentMode = get(themeModeAtom);
+  return currentMode === 'light' ? lightTheme : darkTheme;
 });
 
 export const toggleThemeAtom = atom(null, (get, set) => {

@@ -249,4 +249,4 @@ Please change the parent <Route path="${M}"> to <Route path="${M==="/"?"*":`${M}
   flex-direction: column;
   width: 100%;
   align-items: center;
-`,HM=new EO;oE.createRoot(document.getElementById("root")).render(K.jsx(T.StrictMode,{children:K.jsx(D5,{children:K.jsx(TO,{client:HM,children:K.jsx(s5,{children:K.jsxs(ps,{path:"/",element:K.jsx(J5,{}),children:[K.jsx(ps,{index:!0,element:K.jsx(LM,{})}),K.jsx(ps,{path:"favourites",element:K.jsx("p",{children:"favourites"})})]})})})})}));
+`,HM=new EO;oE.createRoot(document.getElementById("root")).render(K.jsx(T.StrictMode,{children:K.jsx(D5,{basename:"/movie-app",children:K.jsx(TO,{client:HM,children:K.jsx(s5,{children:K.jsxs(ps,{path:"/",element:K.jsx(J5,{}),children:[K.jsx(ps,{index:!0,element:K.jsx(LM,{})}),K.jsx(ps,{path:"favourites",element:K.jsx("p",{children:"favourites"})})]})})})})}));

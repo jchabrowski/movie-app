@@ -1,8 +1,8 @@
-import type { MovieOverviewType } from '../../schemas';
+import type { MovieOverview } from '../../schemas';
 import MovieTile from './MovieTile';
 
 type Props = {
-  movies: MovieOverviewType[];
+  movies: MovieOverview[];
 };
 
 const Movies = ({ movies }: Props) => {
@@ -15,6 +15,7 @@ const Movies = ({ movies }: Props) => {
         Poster={movie.Poster}
         Year={movie.Year}
         Type={movie.Type}
+        imdbID={movie.imdbID}
       />
     );
   });

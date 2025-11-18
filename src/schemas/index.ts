@@ -5,6 +5,7 @@ const MovieOverview = z.object({
   Year: z.string(),
   Poster: z.string(),
   Type: z.string(),
+  imdbID: z.string(),
 });
 
 export const SearchResponse = z.object({
@@ -56,6 +57,6 @@ export const OmdbResponse = z.union([
   TitleResponse,
 ]);
 
-export type MovieOverviewType = z.infer<typeof MovieOverview>;
-export type OmdbResponseType = z.infer<typeof OmdbResponse>;
-export type OmdbMovieDetailType = z.infer<typeof TitleResponse>;
+export type MovieOverview = z.infer<typeof MovieOverview>;
+export type OmdbResponse = z.infer<typeof OmdbResponse>;
+export type MovieDetailsResponse = z.infer<typeof TitleResponse>;

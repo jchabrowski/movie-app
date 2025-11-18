@@ -1,4 +1,3 @@
-import { useCallback, useState } from 'react';
 import { useMovies } from '../../hooks/useMovies';
 import PaginationButtons from '../../components/Pagination';
 import Error from '../../components/Error';
@@ -8,12 +7,13 @@ import Movies from '../../components/Movies';
 import SearchBar from '../../components/SearchBar';
 import styled from 'styled-components';
 import Filters from '../../components/Filters';
-
-const INITIAL_INPUT = '';
+import { useAtom } from 'jotai';
+import { pageAtom, titleAtom } from '../../atoms/queryParamsAtom';
+import DetailsModal from '../../components/DetailsModal';
 
 const Home = () => {
-  const [page, setPage] = useState(1);
-  const [title, setTitle] = useState<string>(INITIAL_INPUT);
+  const [page] = useAtom(pageAtom);
+  const [title] = useAtom(titleAtom);
 
   const { movies, error, isLoading, pagesAmount } = useMovies({
     title,
@@ -22,28 +22,16 @@ const Home = () => {
 
   const showMovies = movies.length > 0 && !error;
   const showError = error && !showMovies;
-
   const showPagination = pagesAmount > 1;
   const showInfo = !showMovies && !isLoading && !showError;
 
-  const handlePageChange = useCallback(
-    (newPage: number) => setPage(newPage),
-    []
-  );
-
   return (
     <HomeWrapper>
-      <SearchBar value={title} setTitle={setTitle} setPage={setPage} />
+      <SearchBar />
 
       <Filters />
 
-      {showPagination && (
-        <PaginationButtons
-          pagesAmount={pagesAmount}
-          page={page}
-          onPageChange={handlePageChange}
-        />
-      )}
+      {showPagination && <PaginationButtons pagesAmount={pagesAmount} />}
 
       {showError && <Error />}
 
@@ -52,6 +40,8 @@ const Home = () => {
       {showInfo && <Info />}
 
       {showMovies && <Movies movies={movies} />}
+
+      <DetailsModal />
     </HomeWrapper>
   );
 };

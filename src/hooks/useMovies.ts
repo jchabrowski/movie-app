@@ -6,9 +6,7 @@ import {
   isTitleResponse,
 } from '../schemas/utils';
 import { useDebounce } from './useDebounce';
-
-const API_KEY = 'a7e0de6a';
-const MOVIES_PER_PAGE = 10;
+import { MOVIES_PER_PAGE, PUBLIC_API_KEY } from '../enums';
 
 export type ValidType = 'movie' | 'series' | 'episode' | 'all';
 
@@ -34,7 +32,7 @@ export const useMovies = ({ title, year, type, page }: Props) => {
       // It produces additional logic and schema validation (responses for 't' and 's' differ).
       // In a real world scenario this would require a strict business decision (on how the api should be used) or fix in the api itself.
       const MODIFIER = debouncedTitle.length > 2 ? 's' : 't';
-      const URL = `https://www.omdbapi.com/?apikey=${API_KEY}&${MODIFIER}=${debouncedTitle}&page=${page}`;
+      const URL = `https://www.omdbapi.com/?apikey=${PUBLIC_API_KEY}&${MODIFIER}=${debouncedTitle}&page=${page}`;
 
       const response = await fetch(URL);
       const json = await response.json();

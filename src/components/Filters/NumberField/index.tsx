@@ -3,29 +3,35 @@ import FormControl from '@mui/material/FormControl';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 
-import { useId } from 'react';
+import { useId, type ReactNode } from 'react';
 
 // This is a base-ui NumberField boilerplate implementation
-
 export default function NumberField({
   label,
+  value,
   ...other
 }: BaseNumberField.Root.Props & {
-  label?: React.ReactNode;
+  label?: ReactNode;
+  value?: number;
 }) {
   const id = useId();
+
+  // TODO - right now there is a bug in mui - some locales insert separators (like , and .) and input number does not have built in formatter to romve those values.
+  // const strCleanup = (value: string | number): string => {
+  //   let str = String(value);
+
+  //   str = str.replace(/[,.+\-]/g, '');
+
+  //   return str;
+  // };
 
   return (
     <BaseNumberField.Root
       allowWheelScrub
+      value={value}
       {...other}
-      render={(props, state) => (
-        <FormControl
-          ref={props.ref}
-          disabled={state.disabled}
-          required={state.required}
-          variant='outlined'
-        >
+      render={(props) => (
+        <FormControl ref={props.ref} variant='outlined'>
           {props.children}
         </FormControl>
       )}
@@ -33,21 +39,24 @@ export default function NumberField({
       <InputLabel htmlFor={id}>{label}</InputLabel>
 
       <BaseNumberField.Input
-        render={(props, state) => (
-          <OutlinedInput
-            label={label}
-            inputRef={props.ref}
-            value={state.inputValue}
-            onBlur={props.onBlur}
-            onChange={props.onChange}
-            onKeyUp={props.onKeyUp}
-            onKeyDown={props.onKeyDown}
-            onFocus={props.onFocus}
-            slotProps={{
-              input: props,
-            }}
-          />
-        )}
+        render={(props, state) => {
+          console.log({ state });
+          return (
+            <OutlinedInput
+              label={label}
+              inputRef={props.ref}
+              value={value}
+              onBlur={props.onBlur}
+              onChange={props.onChange}
+              onKeyUp={props.onKeyUp}
+              onKeyDown={props.onKeyDown}
+              onFocus={props.onFocus}
+              slotProps={{
+                input: props,
+              }}
+            />
+          );
+        }}
       />
     </BaseNumberField.Root>
   );

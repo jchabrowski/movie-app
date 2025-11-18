@@ -1,11 +1,23 @@
 import styled from 'styled-components';
-import type { MovieOverviewType } from '../../schemas';
+import type { MovieOverview } from '../../schemas';
 import Button from '@mui/material/Button';
 import { MAX_MOBILE_WIDTH, MIN_TABLET_WIDTH } from '../../enums';
+import { Img } from '../common';
+import { useAtom } from 'jotai';
+import { modalAtom } from '../../atoms/modalAtom';
+import { movieIdAtom } from '../../atoms/queryParamsAtom';
 
-const MovieTile = ({ Title, Poster, Year, Type }: MovieOverviewType) => {
+const MovieTile = ({ Title, Poster, Year, Type, imdbID }: MovieOverview) => {
   const showPoster = Poster !== 'N/A';
   const showFallback = Poster === 'N/A';
+
+  const [, setModalOpen] = useAtom(modalAtom);
+  const [, setMovieId] = useAtom(movieIdAtom);
+
+  const handleOpenModal = (id: string) => {
+    setMovieId(id);
+    setModalOpen(true);
+  };
 
   return (
     <StyledMovieBox>
@@ -24,7 +36,9 @@ const MovieTile = ({ Title, Poster, Year, Type }: MovieOverviewType) => {
         <RatingWrapper>
           <p>{Type}</p>
 
-          <Button color='primary'>Details</Button>
+          <Button color='primary' onClick={() => handleOpenModal(imdbID)}>
+            Details
+          </Button>
         </RatingWrapper>
       </InformationWrapper>
     </StyledMovieBox>
@@ -80,17 +94,6 @@ const PosterWrapper = styled.div`
 const StyledYear = styled.span`
   font-size: 1rem;
   font-weight: 400;
-`;
-
-const Img = styled.img`
-  width: 10rem;
-  height: 100%;
-  transition: transform 0.3s ease;
-
-  &:hover {
-    transform: scale(1.05);
-    cursor: pointer;
-  }
 `;
 
 const GradientDiv = styled.div`

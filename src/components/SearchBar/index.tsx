@@ -1,15 +1,13 @@
-import { type Dispatch, type SetStateAction } from 'react';
 import styled from 'styled-components';
 import { MAX_MOBILE_WIDTH } from '../../enums';
 import TextField from '@mui/material/TextField';
+import { pageAtom, titleAtom } from '../../atoms/queryParamsAtom';
+import { useAtom } from 'jotai';
 
-type Props = {
-  value: string;
-  setTitle: Dispatch<SetStateAction<string>>;
-  setPage: Dispatch<SetStateAction<number>>;
-};
+const SearchBar = () => {
+  const [, setPage] = useAtom(pageAtom);
+  const [title, setTitle] = useAtom(titleAtom);
 
-const SearchBar = ({ value, setTitle, setPage }: Props) => {
   const handleValueChange = (name: string) => {
     setTitle(name);
     setPage(1);
@@ -20,7 +18,7 @@ const SearchBar = ({ value, setTitle, setPage }: Props) => {
       <TextField
         label='Enter the movie name you are looking for!'
         variant='outlined'
-        value={value}
+        value={title}
         onChange={(e) => handleValueChange(e.target.value)}
       />
     </SearchBarWrapper>

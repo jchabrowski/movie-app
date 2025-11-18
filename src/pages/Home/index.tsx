@@ -7,6 +7,7 @@ import Info from '../../components/Info';
 import Movies from '../../components/Movies';
 import SearchBar from '../../components/SearchBar';
 import styled from 'styled-components';
+import Filters from '../../components/Filters';
 
 const INITIAL_INPUT = '';
 
@@ -33,6 +34,8 @@ const Home = () => {
   return (
     <HomeWrapper>
       <SearchBar value={title} setTitle={setTitle} setPage={setPage} />
+
+      <Filters />
 
       {showPagination && (
         <PaginationButtons

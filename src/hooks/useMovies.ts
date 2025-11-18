@@ -10,7 +10,7 @@ import { useDebounce } from './useDebounce';
 const API_KEY = 'a7e0de6a';
 const MOVIES_PER_PAGE = 10;
 
-type ValidType = 'movie' | 'series' | 'episode';
+export type ValidType = 'movie' | 'series' | 'episode' | 'all';
 
 type Props = {
   title: string;

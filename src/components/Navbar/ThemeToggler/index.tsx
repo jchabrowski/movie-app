@@ -4,7 +4,7 @@ import LightModeIcon from '@mui/icons-material/LightMode';
 
 import { useAtom } from 'jotai';
 
-import { themeModeAtom, toggleThemeAtom } from '../../atoms/themeAtom';
+import { themeModeAtom, toggleThemeAtom } from '../../../atoms/themeAtom';
 
 const ThemeToggler = () => {
   const [, toggleTheme] = useAtom(toggleThemeAtom);

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ThemeToggler from '../ThemeToggler';
+import ThemeToggler from './ThemeToggler';
 
 import { Link, useLocation } from 'react-router-dom';
 import Button from '@mui/material/Button';

@@ -2,17 +2,17 @@ import styled from 'styled-components';
 import type { MovieOverview } from '../../schemas';
 import Button from '@mui/material/Button';
 import { MAX_MOBILE_WIDTH, MIN_TABLET_WIDTH } from '../../enums';
-import { Img } from '../common';
-import { useAtom } from 'jotai';
+import { useSetAtom } from 'jotai';
 import { modalAtom } from '../../atoms/modalAtom';
 import { movieIdAtom } from '../../atoms/queryParamsAtom';
+import { MediumImg } from '../styles';
 
 const MovieTile = ({ Title, Poster, Year, Type, imdbID }: MovieOverview) => {
   const showPoster = Poster !== 'N/A';
   const showFallback = Poster === 'N/A';
 
-  const [, setModalOpen] = useAtom(modalAtom);
-  const [, setMovieId] = useAtom(movieIdAtom);
+  const setModalOpen = useSetAtom(modalAtom);
+  const setMovieId = useSetAtom(movieIdAtom);
 
   const handleOpenModal = (id: string) => {
     setMovieId(id);
@@ -22,7 +22,7 @@ const MovieTile = ({ Title, Poster, Year, Type, imdbID }: MovieOverview) => {
   return (
     <StyledMovieBox>
       <PosterWrapper>
-        {showPoster && <Img src={Poster} alt={Title} loading='lazy' />}
+        {showPoster && <MediumImg src={Poster} alt={Title} loading='lazy' />}
         {showFallback && <GradientDiv />}
       </PosterWrapper>
 

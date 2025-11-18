@@ -13,7 +13,7 @@ const ThemeToggler = () => {
   return (
     <IconButton
       onClick={toggleTheme}
-      color='secondary'
+      color='primary'
       aria-label='toggle darkmode'
     >
       {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}

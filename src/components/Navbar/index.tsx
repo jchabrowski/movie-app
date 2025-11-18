@@ -10,7 +10,7 @@ const Navbar = () => {
   return (
     <StyledWrapper>
       <Button
-        color={location.pathname === '/' ? 'secondary' : 'inherit'}
+        color={location.pathname === '/' ? 'primary' : 'inherit'}
         component={Link}
         to='/'
         variant={location.pathname === '/' ? 'contained' : 'text'}
@@ -19,7 +19,7 @@ const Navbar = () => {
       </Button>
 
       <Button
-        color={location.pathname === '/favourites' ? 'secondary' : 'inherit'}
+        color={location.pathname === '/favourites' ? 'primary' : 'inherit'}
         component={Link}
         to='/favourites'
         variant={location.pathname === '/favourites' ? 'contained' : 'text'}

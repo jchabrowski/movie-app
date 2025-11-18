@@ -4,7 +4,7 @@ import styled from 'styled-components';
 const Loading = () => {
   return (
     <SpinnerWrapper>
-      <CircularProgress size={'3rem'} color='secondary' />
+      <CircularProgress size='3rem' color='primary' />
     </SpinnerWrapper>
   );
 };

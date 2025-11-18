@@ -1,5 +1,7 @@
 import { type Dispatch, type SetStateAction } from 'react';
 import styled from 'styled-components';
+import { MAX_MOBILE_WIDTH } from '../../enums';
+import TextField from '@mui/material/TextField';
 
 type Props = {
   value: string;
@@ -15,11 +17,9 @@ const SearchBar = ({ value, setTitle, setPage }: Props) => {
 
   return (
     <SearchBarWrapper>
-      <label htmlFor='movie'>Enter the movie name you're looking for!</label>
-      <StyledInput
-        id='movie'
-        type='text'
-        placeholder='Search for a movie...'
+      <TextField
+        label='Enter the movie name you are looking for!'
+        variant='outlined'
         value={value}
         onChange={(e) => handleValueChange(e.target.value)}
       />
@@ -27,18 +27,13 @@ const SearchBar = ({ value, setTitle, setPage }: Props) => {
   );
 };
 
-const StyledInput = styled.input`
-  padding: 1rem;
-  border-radius: 0.5rem;
-`;
-
 const SearchBarWrapper = styled.div`
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
   width: 30rem;
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: ${MAX_MOBILE_WIDTH}) {
     width: 100%;
   }
 `;

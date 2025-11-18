@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import type { MovieOverviewType } from '../../schemas';
 import Button from '@mui/material/Button';
+import { MAX_MOBILE_WIDTH, MIN_TABLET_WIDTH } from '../../enums';
 
 const MovieTile = ({ Title, Poster, Year, Type }: MovieOverviewType) => {
   const showPoster = Poster !== 'N/A';
@@ -23,7 +24,7 @@ const MovieTile = ({ Title, Poster, Year, Type }: MovieOverviewType) => {
         <RatingWrapper>
           <p>{Type}</p>
 
-          <Button color='secondary'>Details</Button>
+          <Button color='primary'>Details</Button>
         </RatingWrapper>
       </InformationWrapper>
     </StyledMovieBox>
@@ -35,13 +36,13 @@ const StyledMovieBox = styled.div`
   margin: 1rem 0;
   width: 30rem;
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: ${MAX_MOBILE_WIDTH}) {
     width: 100%;
     flex-direction: column;
     max-width: 14rem;
   }
 
-  @media screen and (min-width: 551px) {
+  @media screen and (min-width: ${MIN_TABLET_WIDTH}) {
     border: 1px solid gray;
     border-radius: 0.5rem;
   }
@@ -70,7 +71,7 @@ const PosterWrapper = styled.div`
   overflow: hidden;
   min-width: 10rem;
 
-  @media screen and (max-width: 550px) {
+  @media screen and (max-width: ${MAX_MOBILE_WIDTH}) {
     display: flex;
     justify-content: center;
   }

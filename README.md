@@ -9,6 +9,7 @@ It should be live at https://jchabrowski.github.io/movie-app/ if I'm not busy br
 - Fetching paginated movie data
 - Filtering movie data by year/type
 - Caching responses client side
+- OMDBApi schema validation
 - Option to save movies to persisting favourites
 - Basic rwd
 

@@ -1,16 +1,15 @@
-import type { MovieOverview } from '../../schemas';
+import type { MovieSearchResponse } from '../../schemas';
 import MovieTile from './MovieTile';
 
 type Props = {
-  movies: MovieOverview[];
+  movies: MovieSearchResponse[];
 };
 
 const Movies = ({ movies }: Props) => {
-  return movies.map((movie, index) => {
+  return movies.map((movie) => {
     return (
       <MovieTile
-        // Attaching index to Title is necessary here, OMDBApi can return doubled elements
-        key={movie.Title + index}
+        key={movie.imdbID}
         Title={movie.Title}
         Poster={movie.Poster}
         Year={movie.Year}

@@ -1,10 +1,8 @@
-// const MOVIES_PER_PAGE = 10;
-// const INITIAL_INPUT = '';
-const INITIAL_ID = '';
+const INITIAL_VALUE = '';
 
 import { atom } from 'jotai';
 
 export const pageAtom = atom(1);
-export const movieIdAtom = atom<string>('');
+export const movieIdAtom = atom<string>(INITIAL_VALUE);
 
-export const titleAtom = atom(INITIAL_ID);
+export const titleAtom = atom(INITIAL_VALUE);

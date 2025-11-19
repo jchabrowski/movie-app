@@ -1,4 +1,7 @@
-import { favouritesAtom, type MovieDetails } from '../../atoms/favouritesAtom';
+import {
+  favouritesAtom,
+  type FavouriteMovieDetails,
+} from '../../atoms/favouritesAtom';
 import Typography from '@mui/material/Typography';
 import { MediumImg, MovieBox } from '../../components/styles';
 import Box from '@mui/material/Box';
@@ -6,24 +9,24 @@ import StarIcon from '@mui/icons-material/Star';
 import Button from '@mui/material/Button';
 import { useSetAtom } from 'jotai';
 
-const FavouriteTile = ({
-  Plot,
-  Poster,
-  Title,
-  imdbRating,
-  id,
-}: MovieDetails) => {
+type Props = {
+  favouriteMovie: FavouriteMovieDetails;
+};
+
+const FavouriteTile = ({ favouriteMovie }: Props) => {
+  const { Title, Poster, Plot, imdbRating, imdbID } = favouriteMovie;
+
   const setFavMovies = useSetAtom(favouritesAtom);
 
   const handleRemoveFav = (clickedId: string) => {
     setFavMovies((favourites) =>
-      favourites.filter((el) => el.id !== clickedId)
+      favourites.filter((el) => el.imdbID !== clickedId)
     );
   };
 
   return (
     <MovieBox>
-      <MediumImg src={Poster} />
+      <MediumImg src={Poster} alt={Title} loading='lazy' />
 
       <Box
         sx={{
@@ -48,7 +51,7 @@ const FavouriteTile = ({
             <StarIcon /> {imdbRating}/10
           </Box>
 
-          <Button color='error' onClick={() => handleRemoveFav(id)}>
+          <Button color='error' onClick={() => handleRemoveFav(imdbID)}>
             Remove
           </Button>
         </Box>

@@ -1,21 +1,19 @@
 import type {
   ErrorResponse,
-  OmdbResponse,
+  OmdbGeneralResponseType,
   SearchResponse,
   TitleResponse,
 } from '.';
-import { z } from 'zod';
 
 export const isErrorResponse = (
-  data: OmdbResponse
-): data is z.infer<typeof ErrorResponse> => data.Response === 'False';
+  data: OmdbGeneralResponseType
+): data is ErrorResponse => data.Response === 'False';
 
 export const isSearchResponse = (
-  data: OmdbResponse
-): data is z.infer<typeof SearchResponse> =>
+  data: OmdbGeneralResponseType
+): data is SearchResponse =>
   data.Response === 'True' && 'Search' in data && 'totalResults' in data;
 
 export const isTitleResponse = (
-  data: OmdbResponse
-): data is z.infer<typeof TitleResponse> =>
-  data.Response === 'True' && !('Search' in data);
+  data: OmdbGeneralResponseType
+): data is TitleResponse => data.Response === 'True' && !('Search' in data);

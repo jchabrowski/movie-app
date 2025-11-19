@@ -3,30 +3,35 @@ import Button from '@mui/material/Button';
 
 import Box from '@mui/material/Box';
 import { useAtom, useSetAtom } from 'jotai';
-import { modalAtom } from '../../atoms/modalAtom';
+import { showModalAtom } from '../../atoms/modalAtom';
 import StarIcon from '@mui/icons-material/Star';
 import styled from 'styled-components';
 import { MAX_MOBILE_WIDTH } from '../../enums';
-import { favouritesAtom, type MovieDetails } from '../../atoms/favouritesAtom';
+import { favouritesAtom } from '../../atoms/favouritesAtom';
+import type { MovieDetailsResponse } from '../../schemas';
 
-const ModalBody = ({ Plot, Poster, Title, imdbRating, id }: MovieDetails) => {
-  const setModalOpen = useSetAtom(modalAtom);
+type Props = {
+  movie: MovieDetailsResponse;
+};
+
+const ModalBody = ({ movie }: Props) => {
+  const { Title, Poster, Plot, imdbRating, imdbID } = movie;
+
+  const setModalOpen = useSetAtom(showModalAtom);
   const [favourites, setFavourites] = useAtom(favouritesAtom);
 
-  const canAddToFavourites = !favourites.find((el) => el.id === id);
+  const canAddToFavourites = !favourites.find((el) => el.imdbID === imdbID);
 
   const handleAddToFavs = () => {
     setFavourites((favourites) => [
       ...favourites,
-      { Plot, Poster, Title, imdbRating, id },
+      { Plot, Poster, Title, imdbRating, imdbID },
     ]);
-
-    setModalOpen(false);
   };
 
   return (
     <>
-      <Img src={Poster}></Img>
+      <Img src={Poster} alt={Title} loading='lazy' />
 
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Typography id='modal-modal-title' variant='h6' component='h2'>

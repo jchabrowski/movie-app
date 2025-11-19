@@ -15,13 +15,13 @@ const Home = () => {
   const page = useAtomValue(pageAtom);
   const title = useAtomValue(titleAtom);
 
-  const { movies, error, isLoading, pagesAmount } = useMovies({
+  const { movies, isError, isLoading, pagesAmount } = useMovies({
     title,
     page,
   });
 
-  const showMovies = movies.length > 0 && !error;
-  const showError = error && !showMovies;
+  const showMovies = movies.length > 0 && !isError;
+  const showError = isError && !showMovies;
   const showPagination = pagesAmount > 1;
   const showInfo = !showMovies && !isLoading && !showError;
 

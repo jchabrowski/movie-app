@@ -1,11 +1,12 @@
 import { atomWithStorage } from 'jotai/utils';
+import type { MovieDetailsResponse } from '../schemas';
 
-export type MovieDetails = {
-  Plot: string;
-  Poster: string;
-  Title: string;
-  imdbRating: string;
-  id: string;
-};
+export type FavouriteMovieDetails = Pick<
+  MovieDetailsResponse,
+  'Plot' | 'Poster' | 'Title' | 'imdbRating' | 'imdbID'
+>;
 
-export const favouritesAtom = atomWithStorage<MovieDetails[]>('favourites', []);
+export const favouritesAtom = atomWithStorage<FavouriteMovieDetails[]>(
+  'favourites',
+  []
+);

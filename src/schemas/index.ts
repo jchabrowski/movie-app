@@ -8,7 +8,7 @@ const MovieOverview = z.object({
   imdbID: z.string(),
 });
 
-export const SearchResponse = z.object({
+const SearchResponse = z.object({
   Response: z.literal('True'),
   Search: z.array(MovieOverview),
   totalResults: z.string(),
@@ -19,7 +19,7 @@ const Rating = z.object({
   Value: z.string(),
 });
 
-export const TitleResponse = z.object({
+const TitleResponse = z.object({
   Title: z.string(),
   Year: z.string(),
   Rated: z.string(),
@@ -46,17 +46,23 @@ export const TitleResponse = z.object({
   Response: z.literal('True'),
 });
 
-export const ErrorResponse = z.object({
+const ErrorResponse = z.object({
   Response: z.literal('False'),
   Error: z.string(),
 });
 
-export const OmdbResponse = z.union([
+export const OmdbGeneralResponse = z.union([
   ErrorResponse,
   SearchResponse,
   TitleResponse,
 ]);
 
-export type MovieOverview = z.infer<typeof MovieOverview>;
-export type OmdbResponse = z.infer<typeof OmdbResponse>;
+export const OmdbIdResponse = z.union([ErrorResponse, TitleResponse]);
+
+export type MovieSearchResponse = z.infer<typeof MovieOverview>;
+export type OmdbGeneralResponseType = z.infer<typeof OmdbGeneralResponse>;
 export type MovieDetailsResponse = z.infer<typeof TitleResponse>;
+
+export type ErrorResponse = z.infer<typeof ErrorResponse>;
+export type SearchResponse = z.infer<typeof SearchResponse>;
+export type TitleResponse = z.infer<typeof TitleResponse>;

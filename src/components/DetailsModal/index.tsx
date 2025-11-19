@@ -1,7 +1,7 @@
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { useAtom, useAtomValue } from 'jotai';
-import { modalAtom } from '../../atoms/modalAtom';
+import { showModalAtom } from '../../atoms/modalAtom';
 import { movieIdAtom } from '../../atoms/queryParamsAtom';
 import { useMovieDetails } from '../../hooks/useMovieDetails';
 import Loading from '../Loading';
@@ -10,13 +10,10 @@ import Error from '../Error';
 import { MIN_TABLET_WIDTH } from '../../enums';
 
 const DetailsModal = () => {
-  const [open, setModalOpen] = useAtom(modalAtom);
+  const [open, setModalOpen] = useAtom(showModalAtom);
   const id = useAtomValue(movieIdAtom);
 
-  const { error, isLoading, movie } = useMovieDetails({ id });
-
-  if (!movie) return;
-  const { Title, Poster, Plot, imdbRating } = movie;
+  const { isError, isLoading, movie } = useMovieDetails({ id });
 
   return (
     <Modal
@@ -29,17 +26,9 @@ const DetailsModal = () => {
       <Box sx={style}>
         {isLoading && <Loading />}
 
-        {error && <Error />}
+        {isError && <Error />}
 
-        {movie && (
-          <ModalBody
-            Title={Title}
-            Poster={Poster}
-            Plot={Plot}
-            imdbRating={imdbRating}
-            id={id}
-          />
-        )}
+        {movie && <ModalBody movie={movie} />}
       </Box>
     </Modal>
   );
@@ -47,7 +36,7 @@ const DetailsModal = () => {
 
 const style = {
   position: 'absolute',
-  top: '10%',
+  top: '5%',
   margin: '1rem',
   bgcolor: 'background.paper',
   border: '2px solid #000',

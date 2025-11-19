@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { OmdbResponse } from '../schemas';
+import { OmdbIdResponse } from '../schemas';
 import { isErrorResponse, isTitleResponse } from '../schemas/utils';
 import { PUBLIC_API_KEY } from '../enums';
 
@@ -14,21 +14,37 @@ export const useMovieDetails = ({ id }: Props) => {
     enabled: !!id,
 
     queryFn: async () => {
-      const URL = `https://www.omdbapi.com/?apikey=${PUBLIC_API_KEY}&i=${id}`;
+      const params = new URLSearchParams({
+        apikey: PUBLIC_API_KEY,
+        i: id,
+      });
 
+      const URL = `https://www.omdbapi.com/?${params}`;
       const response = await fetch(URL);
-      const json = await response.json();
-      const parsed = OmdbResponse.parse(json);
 
-      if (isErrorResponse(parsed)) {
-        // console.error for local development
-        console.error(parsed.Error);
-        throw new Error(parsed.Error);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      if (isTitleResponse(parsed)) {
+      const json = await response.json();
+      const parsed = OmdbIdResponse.safeParse(json);
+
+      if (!parsed.success) {
+        console.error('Validation failed:', parsed.error.issues);
+        throw new Error('Invalid API response');
+      }
+
+      const { data } = parsed;
+
+      if (isErrorResponse(data)) {
+        // console.error for local development
+        console.error(data.Error);
+        throw new Error(data.Error);
+      }
+
+      if (isTitleResponse(data)) {
         return {
-          movie: parsed,
+          movie: data,
         };
       }
 
@@ -42,7 +58,7 @@ export const useMovieDetails = ({ id }: Props) => {
   return {
     movie: result.data?.movie || null,
     isLoading: result.isLoading,
-    error: result.error ? true : null,
+    isError: result.isError,
   };
 };
 

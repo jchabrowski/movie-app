@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { OmdbResponse } from '../schemas';
+import { OmdbGeneralResponse } from '../schemas';
 import {
   isErrorResponse,
   isSearchResponse,
@@ -32,28 +32,46 @@ export const useMovies = ({ title, year, type, page }: Props) => {
       // It produces additional logic and schema validation (responses for 't' and 's' differ).
       // In a real world scenario this would require a strict business decision (on how the api should be used) or fix in the api itself.
       const MODIFIER = debouncedTitle.length > 2 ? 's' : 't';
-      const URL = `https://www.omdbapi.com/?apikey=${PUBLIC_API_KEY}&${MODIFIER}=${debouncedTitle}&page=${page}`;
 
+      const params = new URLSearchParams({
+        apikey: PUBLIC_API_KEY,
+        [MODIFIER]: debouncedTitle,
+        page: page.toString(),
+      });
+
+      const URL = `https://www.omdbapi.com/?${params}`;
       const response = await fetch(URL);
-      const json = await response.json();
-      const parsed = OmdbResponse.parse(json);
 
-      if (isErrorResponse(parsed)) {
-        // console.error for local development
-        console.error(parsed.Error);
-        throw new Error(parsed.Error);
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
-      if (isSearchResponse(parsed)) {
+      const json = await response.json();
+      const parsed = OmdbGeneralResponse.safeParse(json);
+
+      if (!parsed.success) {
+        console.error('Validation failed:', parsed.error.issues);
+        throw new Error('Invalid API response');
+      }
+
+      const { data } = parsed;
+
+      if (isErrorResponse(data)) {
+        // console.error for local development
+        console.error(data.Error);
+        throw new Error(data.Error);
+      }
+
+      if (isSearchResponse(data)) {
         return {
-          movies: parsed.Search,
-          pagesAmount: Math.ceil(Number(parsed.totalResults) / MOVIES_PER_PAGE),
+          movies: data.Search,
+          pagesAmount: Math.ceil(Number(data.totalResults) / MOVIES_PER_PAGE),
         };
       }
 
-      if (isTitleResponse(parsed)) {
+      if (isTitleResponse(data)) {
         return {
-          movies: [parsed],
+          movies: [data],
           pagesAmount: 1,
         };
       }
@@ -68,7 +86,7 @@ export const useMovies = ({ title, year, type, page }: Props) => {
   return {
     movies: result.data?.movies ?? [],
     isLoading: result.isLoading,
-    error: result.error ? true : null,
+    isError: result.isError,
     pagesAmount: result.data?.pagesAmount ?? 1,
   };
 };

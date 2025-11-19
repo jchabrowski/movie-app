@@ -1,17 +1,23 @@
 import styled from 'styled-components';
-import type { MovieOverview } from '../../schemas';
+import type { MovieSearchResponse } from '../../schemas';
 import Button from '@mui/material/Button';
 import { MAX_MOBILE_WIDTH, MIN_TABLET_WIDTH } from '../../enums';
 import { useSetAtom } from 'jotai';
-import { modalAtom } from '../../atoms/modalAtom';
+import { showModalAtom } from '../../atoms/modalAtom';
 import { movieIdAtom } from '../../atoms/queryParamsAtom';
 import { MediumImg } from '../styles';
 
-const MovieTile = ({ Title, Poster, Year, Type, imdbID }: MovieOverview) => {
+const MovieTile = ({
+  Title,
+  Poster,
+  Year,
+  Type,
+  imdbID,
+}: MovieSearchResponse) => {
   const showPoster = Poster !== 'N/A';
   const showFallback = Poster === 'N/A';
 
-  const setModalOpen = useSetAtom(modalAtom);
+  const setModalOpen = useSetAtom(showModalAtom);
   const setMovieId = useSetAtom(movieIdAtom);
 
   const handleOpenModal = (id: string) => {

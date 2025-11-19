@@ -1,8 +1,8 @@
 ## What is this?
 
-It's a proof of concept app that fetches movie data from https://www.omdbapi.com/
+It's a proof of concept app that fetches movie data from <a href="https://www.omdbapi.com/">OMDBApi</a>
 
-It should be live at https://jchabrowski.github.io/movie-app/ if I'm not busy breaking it 🔨
+It should be live at <a href="https://jchabrowski.github.io/movie-app/" target="_blank">https://jchabrowski.github.io/movie-app/</a> if I'm not busy breaking it 🔨
 
 ## What's inside?
 

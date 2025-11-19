@@ -2,14 +2,15 @@ import styled from 'styled-components';
 import { MAX_MOBILE_WIDTH } from '../../enums';
 import TextField from '@mui/material/TextField';
 import { pageAtom, titleAtom } from '../../atoms/queryParamsAtom';
-import { useAtom } from 'jotai';
+import { useAtom, useSetAtom } from 'jotai';
 
 const SearchBar = () => {
-  const [, setPage] = useAtom(pageAtom);
+  const setPage = useSetAtom(pageAtom);
   const [title, setTitle] = useAtom(titleAtom);
 
   const handleValueChange = (name: string) => {
     setTitle(name);
+    // Always fetch first page when title value changes
     setPage(1);
   };
 

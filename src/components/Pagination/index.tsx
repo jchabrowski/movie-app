@@ -17,6 +17,8 @@ const PaginationButtons = ({ pagesAmount }: Props) => {
       shape='rounded'
       color='primary'
       size='large'
+      hideNextButton
+      hidePrevButton
       onChange={(_event, page) => setPage(page)}
     />
   );

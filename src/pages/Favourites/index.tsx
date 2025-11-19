@@ -11,7 +11,7 @@ const Favourites = () => {
   return (
     <ViewWrapper>
       {favourites.map((el) => (
-        <FavouriteTile favouriteMovie={el} />
+        <FavouriteTile key={el.imdbID} favouriteMovie={el} />
       ))}
 
       {favourites.length < 1 && (

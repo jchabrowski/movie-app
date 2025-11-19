@@ -9,10 +9,12 @@ import { useId, type ReactNode } from 'react';
 export default function NumberField({
   label,
   value,
+  onValueChange,
   ...other
 }: BaseNumberField.Root.Props & {
   label?: ReactNode;
   value?: number;
+  onValueChange?: (value: number) => void;
 }) {
   const id = useId();
 
@@ -29,6 +31,7 @@ export default function NumberField({
     <BaseNumberField.Root
       allowWheelScrub
       value={value}
+      onValueChange={onValueChange}
       {...other}
       render={(props) => (
         <FormControl ref={props.ref} variant='outlined'>
@@ -39,8 +42,7 @@ export default function NumberField({
       <InputLabel htmlFor={id}>{label}</InputLabel>
 
       <BaseNumberField.Input
-        render={(props, state) => {
-          console.log({ state });
+        render={(props) => {
           return (
             <OutlinedInput
               label={label}

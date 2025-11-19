@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import type { MovieSearchResponse } from '../../schemas';
 import Button from '@mui/material/Button';
-import { MAX_MOBILE_WIDTH, MIN_TABLET_WIDTH } from '../../enums';
+import { MAX_MOBILE_WIDTH } from '../../enums';
 import { useSetAtom } from 'jotai';
 import { showModalAtom } from '../../atoms/modalAtom';
 import { movieIdAtom } from '../../atoms/queryParamsAtom';
@@ -59,13 +59,10 @@ const StyledMovieBox = styled.div`
   @media screen and (max-width: ${MAX_MOBILE_WIDTH}) {
     width: 100%;
     flex-direction: column;
-    max-width: 14rem;
   }
 
-  @media screen and (min-width: ${MIN_TABLET_WIDTH}) {
-    border: 1px solid gray;
-    border-radius: 0.5rem;
-  }
+  border: 1px solid gray;
+  border-radius: 0.5rem;
 `;
 
 const TopRowWrapper = styled.div`

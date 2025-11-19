@@ -6,19 +6,11 @@ import Info from '../../components/Info';
 import Movies from '../../components/Movies';
 import SearchBar from '../../components/SearchBar';
 import Filters from '../../components/Filters';
-import { useAtomValue } from 'jotai';
-import { pageAtom, titleAtom } from '../../atoms/queryParamsAtom';
 import DetailsModal from '../../components/DetailsModal';
 import { ViewWrapper } from '../styles';
 
 const Home = () => {
-  const page = useAtomValue(pageAtom);
-  const title = useAtomValue(titleAtom);
-
-  const { movies, isError, isLoading, pagesAmount } = useMovies({
-    title,
-    page,
-  });
+  const { movies, isError, isLoading, pagesAmount } = useMovies();
 
   const showMovies = movies.length > 0 && !isError;
   const showError = isError && !showMovies;

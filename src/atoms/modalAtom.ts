@@ -1,3 +1,3 @@
 import { atom } from 'jotai';
 
-export const showModalAtom = atom(false);
+export const showModalAtom = atom<boolean>(false);

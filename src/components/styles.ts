@@ -10,7 +10,7 @@ export const MovieBox = styled.div`
   @media screen and (max-width: ${MAX_MOBILE_WIDTH}) {
     width: 100%;
     flex-direction: column;
-    max-width: 14rem;
+    width: 100%;
   }
 
   @media screen and (min-width: ${MIN_TABLET_WIDTH}) {
@@ -23,6 +23,10 @@ export const MediumImg = styled.img`
   width: 10rem;
   height: 100%;
   transition: transform 0.3s ease;
+
+  @media screen and (max-width: ${MAX_MOBILE_WIDTH}) {
+    width: 100%;
+  }
 
   &:hover {
     transform: scale(1.05);

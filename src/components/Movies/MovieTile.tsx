@@ -27,7 +27,7 @@ const MovieTile = ({
 
   return (
     <StyledMovieBox>
-      <PosterWrapper>
+      <PosterWrapper onClick={() => handleOpenModal(imdbID)}>
         {showPoster && <MediumImg src={Poster} alt={Title} loading='lazy' />}
         {showFallback && <GradientDiv />}
       </PosterWrapper>

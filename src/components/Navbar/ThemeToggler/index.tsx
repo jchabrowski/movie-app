@@ -2,13 +2,13 @@ import IconButton from '@mui/material/IconButton';
 import DarkModeIcon from '@mui/icons-material/DarkMode';
 import LightModeIcon from '@mui/icons-material/LightMode';
 
-import { useAtom } from 'jotai';
+import { useAtomValue, useSetAtom } from 'jotai';
 
 import { themeModeAtom, toggleThemeAtom } from '../../../atoms/themeAtom';
 
 const ThemeToggler = () => {
-  const [, toggleTheme] = useAtom(toggleThemeAtom);
-  const [mode] = useAtom(themeModeAtom);
+  const toggleTheme = useSetAtom(toggleThemeAtom);
+  const mode = useAtomValue(themeModeAtom);
 
   return (
     <IconButton

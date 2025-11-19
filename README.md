@@ -4,20 +4,21 @@ It's a proof of concept app that fetches movie data from https://www.omdbapi.com
 
 It should be live at https://jchabrowski.github.io/movie-app/ if I'm not busy breaking it 🔨
 
-## What it includes?
+## What's inside?
 
-- Fetching paginated movie data
-- Filtering movie data by year/type
-- Caching responses client side
-- OMDBApi schema validation
-- Option to save movies to persisting favourites
-- Basic rwd
+- Fetches paginated movie data
+- Supports filtering by year and type
+- Client-side response caching
+- Validates OMDB API responses
+- Allows saving favorite movies with persistence
+- Keyboard navigation support
+- Basic responsive design
 
-## Additionally (cool factors)
+## Additionally
 
-- Lightmode/darkmode support
-- Debounced title search separated from the filters
-- CLI gh-pages deployments
+- Light and dark mode support
+- Debounced title search independent from other filters
+- CLI-based deployments to GitHub Pages
 
 ## How to run
 

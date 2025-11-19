@@ -11,7 +11,7 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename='/movie-app'>
       <QueryClientProvider client={queryClient}>
         <ErrorBoundary>
           <Routes>

@@ -11,13 +11,13 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter basename='/movie-app'>
+    <BrowserRouter>
       <QueryClientProvider client={queryClient}>
         <ErrorBoundary>
           <Routes>
             <Route path='/' element={<Root />}>
               <Route index element={<Home />} />
-              <Route path='favourites' element={<Favourites />} />
+              <Route path='/favourites' element={<Favourites />} />
             </Route>
           </Routes>
         </ErrorBoundary>
